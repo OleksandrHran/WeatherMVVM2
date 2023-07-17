@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WeatherMVVM</string>
+    <string name="now">Зараз</string>
+    <string name="map">Map</string>
+    <string name="temperature">Temperature: %1$s°C</string>
+
+
+</resources>
