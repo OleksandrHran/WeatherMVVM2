@@ -32,9 +32,9 @@ class HorizontalRecycleView(private var data: List<WeatherData>) :
 
         val weather = data[position]
         holder.time.text = WeatherUtils.getTime(weather.dt)
-//        holder.temperature.text = weather.main.temp.toInt().toString() + "°C"
-//        val iconResource = WeatherUtils.getIconId(weather.weather[0].icon)
-//        holder.weather.setImageResource(iconResource)
+       holder.temperature.text = weather.main.temp.toInt().toString() + "°C"
+       val iconResource = WeatherUtils.getIconId(weather.weather[0].icon)
+       holder.weather.setImageResource(iconResource)
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

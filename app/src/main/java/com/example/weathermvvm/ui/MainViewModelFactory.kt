@@ -9,7 +9,7 @@ class MainViewModelFactory(private val weatherRepository: WeatherRepository, pri
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(weatherRepository, weatherDao) as T
+            return MainViewModel(weatherRepository) as T
         }
         throw IllegalAccessException("Unknown ViewModel class")
     }

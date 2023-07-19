@@ -13,7 +13,7 @@ import com.example.weathermvvm.network.data.WeatherResponse
 
 @Database(
     entities = [WeatherEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class WeatherDatabase : RoomDatabase() {
@@ -30,6 +30,7 @@ abstract class WeatherDatabase : RoomDatabase() {
                     WeatherDatabase::class.java,
                     "weather_database"
                 )
+                    .addMigrations(DatabaseMigrations.migration_1_2)
                     .build()
                 INSTANCE = instance
                 instance

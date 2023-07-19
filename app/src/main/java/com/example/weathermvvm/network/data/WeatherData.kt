@@ -9,7 +9,7 @@ data class WeatherData(
     val id: Int,
 
     val dt: Long,
-    val main: String?,
-    val weather: String?
+    val main: MainData,
+    val weather: List<WeatherDetail>
 )
 

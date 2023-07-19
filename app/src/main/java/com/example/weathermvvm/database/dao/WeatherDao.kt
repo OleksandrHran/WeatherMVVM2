@@ -10,6 +10,7 @@ import com.example.weathermvvm.network.data.MainData
 import com.example.weathermvvm.network.data.WeatherData
 import com.example.weathermvvm.network.data.WeatherDetail
 import com.example.weathermvvm.network.data.WeatherResponse
+import java.util.concurrent.Flow
 
 @Dao
 interface WeatherDao {
@@ -23,10 +24,10 @@ interface WeatherDao {
 //    suspend fun insertWeatherData(weatherData: WeatherEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertWeatherResponse(weatherResponse: WeatherEntity)
+     fun insertWeatherEntity(weatherResponse: List<WeatherEntity>)
 
     @Query("SELECT * FROM weather_entity")
 
-    fun getAllWeatherResponses(): LiveData<List<WeatherEntity>>
+    fun getAllWeatherEntity(): List<WeatherEntity>
 
 }

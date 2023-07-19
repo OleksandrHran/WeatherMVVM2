@@ -12,36 +12,34 @@ import com.example.weathermvvm.network.data.WeatherResponse
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val weatherRepository: WeatherRepository,
-    private val weatherDao: WeatherDao
-    ) : ViewModel() {
+    private val weatherRepository: WeatherRepository) : ViewModel() {
 
-    private val _weatherResponses = weatherDao.getAllWeatherResponses()
-    val weatherResponses: LiveData<List<WeatherEntity>> = _weatherResponses
-
-    private val _weatherData = MutableLiveData<List<WeatherData>>()
-    val weatherData: LiveData<List<WeatherData>> = _weatherData
+    private val _weatherData = MutableLiveData<List<WeatherEntity>>()
+    val weatherData: LiveData<List<WeatherEntity>> = _weatherData
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    private fun  saveWeatherDataToDataBase(weatherDataList: List<WeatherEntity>) {
-       /// val weatherResponse = WeatherResponse(list = weatherDataList)
+    private var cachedWeatherData: List<WeatherEntity>? = null
+
+    init {
         viewModelScope.launch {
-         //   weatherDao.insertWeatherResponse(weatherResponse)
+            cachedWeatherData = weatherRepository.getWeatherData()
+            _weatherData.postValue(cachedWeatherData)
         }
     }
 
-    fun getWeatherData() {
+  suspend  fun getWeatherData(): List<WeatherEntity>? {
         viewModelScope.launch {
             try {
                 val weatherResponse = weatherRepository.getWeatherData()
-                _weatherData.value = weatherResponse.list
-               // saveWeatherDataToDataBase(weatherResponse.list)
+                _weatherData.postValue(weatherResponse)
+                _error.postValue(null)
             } catch (e: Exception) {
                 e.printStackTrace()
                 _error.value = "Failed to fetch weather data"
             }
         }
+        return cachedWeatherData
     }
 }
