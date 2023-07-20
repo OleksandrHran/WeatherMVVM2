@@ -21,14 +21,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: HorizontalRecycleView
     private lateinit var viewModel: MainViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scrolling)
 
         val weatherDatabase = WeatherDatabase.getDataBase(applicationContext)
         val weatherDao = weatherDatabase.weatherDao()
-
-
 
         recyclerView = findViewById(R.id.horizontal_recyclerview)
         adapter = HorizontalRecycleView(emptyList())
@@ -37,10 +36,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         val weatherService = WeatherServiceFactory.create()
-        val weatherRepository = WeatherRepository(weatherDao, weatherService)
+        val weatherRepository = WeatherRepository(weatherDao, weatherService, applicationContext)
         viewModel = ViewModelProvider(
             this,
-            MainViewModelFactory(weatherRepository, weatherDao)
+            MainViewModelFactory(weatherRepository)
         )[MainViewModel::class.java]
         viewModel.weatherData.observe(this) { weatherEntities ->
             val weatherDataList = weatherEntities.map { weatherEntity ->

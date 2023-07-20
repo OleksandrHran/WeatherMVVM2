@@ -6,10 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.weathermvvm.database.dao.WeatherDao
 import com.example.weathermvvm.database.data.WeatherEntity
-import com.example.weathermvvm.network.data.MainData
-import com.example.weathermvvm.network.data.WeatherData
-import com.example.weathermvvm.network.data.WeatherDetail
-import com.example.weathermvvm.network.data.WeatherResponse
 
 @Database(
     entities = [WeatherEntity::class],

@@ -14,20 +14,9 @@ import java.util.concurrent.Flow
 
 @Dao
 interface WeatherDao {
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertMainData(mainData: WeatherEntity)
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertWeatherDetail(weatherDetail: WeatherDetail)
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertWeatherData(weatherData: WeatherEntity)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertWeatherEntity(weatherResponse: List<WeatherEntity>)
+    fun insertWeatherEntity(weatherResponse: List<WeatherEntity>)
 
     @Query("SELECT * FROM weather_entity")
-
     fun getAllWeatherEntity(): List<WeatherEntity>
-
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.weathermvvm.network.WeatherRepository
 import com.example.weathermvvm.database.dao.WeatherDao
 
-class MainViewModelFactory(private val weatherRepository: WeatherRepository, private val weatherDao: WeatherDao) :
+class MainViewModelFactory(private val weatherRepository: WeatherRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
