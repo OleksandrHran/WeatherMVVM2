@@ -18,7 +18,6 @@ class WeatherRepository(
 
     suspend fun getWeatherData(): List<WeatherEntity> {
         return withContext(Dispatchers.IO) {
-
             if (isNetworkAvailable(context)) {
                 try {
                     val response: Response<WeatherResponse> = weatherService.getWeatherForecast(
@@ -28,7 +27,6 @@ class WeatherRepository(
                     )
                     if (response.isSuccessful) {
                         val weatherResponse = response.body()?.list ?: emptyList()
-
                         val weatherEntity = weatherResponse.map { data ->
                             WeatherEntity(
                                 time = data.dt,
@@ -46,7 +44,6 @@ class WeatherRepository(
             }
             return@withContext weatherDao.getAllWeatherEntity()
         }
-
     }
 
     private fun isNetworkAvailable(context: Context): Boolean {
