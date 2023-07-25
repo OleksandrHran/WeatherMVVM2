@@ -32,7 +32,7 @@ class MainViewModel(
             try {
                 val weatherResponse = weatherRepository.getWeatherData()
                 _weatherData.postValue(weatherResponse)
-                _error.postValue(null)//отправляет нулевое значение свойству
+                _error.postValue(null)
             } catch (e: Exception) {
                 e.printStackTrace()
                 _error.postValue("Failed to fetch weather data")
