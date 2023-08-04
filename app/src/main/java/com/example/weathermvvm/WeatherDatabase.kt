@@ -12,6 +12,7 @@ import com.example.weathermvvm.database.data.WeatherEntity
     version = 2,
     exportSchema = false
 )
+
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
 

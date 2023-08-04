@@ -14,8 +14,9 @@ import com.example.weathermvvm.network.data.MainData
 import com.example.weathermvvm.network.data.WeatherData
 import com.example.weathermvvm.network.data.WeatherDetail
 import com.example.weathermvvm.recycle.HorizontalRecycleView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HorizontalRecycleView

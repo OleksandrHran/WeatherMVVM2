@@ -9,8 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Response
+import javax.inject.Inject
 
-class WeatherRepository(
+class WeatherRepository (
     private val weatherDao: WeatherDao,
     private val weatherService: WeatherService,
     private val context: Context
