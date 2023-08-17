@@ -1,24 +1,18 @@
 package com.example.weathermvvm.ui
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weathermvvm.network.WeatherRepository
-import com.example.weathermvvm.network.data.MainData
+import com.example.weathermvvm.manager.WeatherManager
 import com.example.weathermvvm.network.data.WeatherData
-import com.example.weathermvvm.network.data.WeatherDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val weatherRepository: WeatherRepository,
-    private val viewModelManager: ViewModelManager,
-    @ApplicationContext private val context: Context
+    private val weatherManager: WeatherManager,
 ) : ViewModel() {
 
     private val _weatherData = MutableLiveData<List<WeatherData>>()
@@ -30,16 +24,7 @@ class MainViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             try {
-                val weatherResponse = weatherRepository.getWeatherData()
-                val weatherDataList = weatherResponse.map { weatherEntity ->
-                    WeatherData(
-                        id = weatherEntity.id,
-                        dt = weatherEntity.time,
-                        main = MainData(temp = weatherEntity.temp),
-                        weather = listOf(WeatherDetail(icon = weatherEntity.icon))
-                    )
-                }
-
+                val weatherDataList = weatherManager.fetchWeatherData()
                 _weatherData.postValue(weatherDataList)
                 _error.postValue(null)
             } catch (e: Exception) {
@@ -51,7 +36,7 @@ class MainViewModel @Inject constructor(
 
     private suspend fun fetchWeatherData() {
         try {
-            val weatherData = viewModelManager.fetchWeatherData()
+            val weatherData = weatherManager.fetchWeatherData()
             if (weatherData != null) {
                 _weatherData.postValue(weatherData)
             } else {

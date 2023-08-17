@@ -1,8 +1,6 @@
 package com.example.weathermvvm.network
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import com.example.weathermvvm.database.dao.WeatherDao
 import com.example.weathermvvm.database.data.WeatherEntity
 import com.example.weathermvvm.network.data.WeatherResponse
@@ -23,7 +21,7 @@ class WeatherRepository @Inject constructor (
 
     suspend fun getWeatherData(): List<WeatherEntity> {
         return withContext(Dispatchers.IO) {
-            val isNetworkAvailable = isNetworkAvailable(context)
+            val isNetworkAvailable = NetworkUtils.isNetworkAvailable(context)
             if (isNetworkAvailable) {
                 try {
                     val response: Response<WeatherResponse> = weatherService.getWeatherForecast(
@@ -50,14 +48,6 @@ class WeatherRepository @Inject constructor (
             }
             return@withContext weatherDao.getAllWeatherEntity()
         }
-    }
-
-    private fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network = connectivityManager.activeNetwork
-        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
-        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }
 

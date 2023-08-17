@@ -2,7 +2,8 @@ package com.example.weathermvvm.di
 
 import com.example.weathermvvm.database.LocalDataSource
 import com.example.weathermvvm.network.NetworkDataSource
-import com.example.weathermvvm.ui.ViewModelManager
+import com.example.weathermvvm.manager.WeatherManager
+import com.example.weathermvvm.network.WeatherRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +18,8 @@ object AppModel {
     fun provideWeatherManager(
         networkDataSource: NetworkDataSource,
         localDataSource: LocalDataSource,
-    ): ViewModelManager {
-        return ViewModelManager(networkDataSource,localDataSource)
+        weatherRepository: WeatherRepository
+    ): WeatherManager {
+        return WeatherManager(networkDataSource,localDataSource, weatherRepository)
     }
 }

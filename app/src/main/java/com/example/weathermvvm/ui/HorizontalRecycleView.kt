@@ -1,4 +1,4 @@
-package com.example.weathermvvm.recycle
+package com.example.weathermvvm.ui
 
 import android.view.LayoutInflater
 import android.view.View
