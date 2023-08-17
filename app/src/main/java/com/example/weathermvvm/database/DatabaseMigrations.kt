@@ -1,4 +1,4 @@
-package com.example.weathermvvm
+package com.example.weathermvvm.database
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
