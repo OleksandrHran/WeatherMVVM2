@@ -18,39 +18,26 @@ class MainViewModel @Inject constructor(
     private val _weatherData = MutableLiveData<List<WeatherData>>()
     val weatherData: LiveData<List<WeatherData>> = _weatherData
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
-
-    init {
-        viewModelScope.launch {
-            try {
-                val weatherDataList = weatherManager.fetchWeatherData()
-                _weatherData.postValue(weatherDataList)
-                _error.postValue(null)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _error.postValue("Failed to fetch weather data")
-            }
-        }
-    }
-
-    private suspend fun fetchWeatherData() {
-        try {
-            val weatherData = weatherManager.fetchWeatherData()
-            if (weatherData != null) {
-                _weatherData.postValue(weatherData)
-            } else {
-                _error.postValue("Failed to fetch weather data")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _error.postValue("An error occurred while fetching weather data")
-        }
-    }
-
     fun startFetchingWeatherData() {
         viewModelScope.launch {
-            fetchWeatherData()
+            try {
+                val weatherData = weatherManager.fetchWeatherData()
+                if (weatherData != null) {
+                    _weatherData.postValue(weatherData)
+                    weatherManager.saveWeatherData(weatherData)
+                }else{
+                    loadWeatherFromDatabase()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private  fun loadWeatherFromDatabase() {
+        val weatherFromDataBase = weatherManager.loadWeatherDataFromDataBase()
+        if (weatherFromDataBase.isEmpty()) {
+            _weatherData.postValue(weatherFromDataBase)
         }
     }
 }

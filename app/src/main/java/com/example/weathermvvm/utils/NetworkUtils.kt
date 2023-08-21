@@ -1,4 +1,4 @@
-package com.example.weathermvvm.network
+package com.example.weathermvvm.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

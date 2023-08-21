@@ -1,13 +1,14 @@
 package com.example.weathermvvm.di
 
+import android.content.Context
 import com.example.weathermvvm.database.LocalDataSource
-import com.example.weathermvvm.network.NetworkDataSource
 import com.example.weathermvvm.manager.WeatherManager
-import com.example.weathermvvm.network.WeatherRepository
+import com.example.weathermvvm.network.WeatherDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 @Module
@@ -16,10 +17,12 @@ object AppModel {
     @Provides
     @Singleton
     fun provideWeatherManager(
-        networkDataSource: NetworkDataSource,
+
         localDataSource: LocalDataSource,
-        weatherRepository: WeatherRepository
+        weatherDataSource: WeatherDataSource,
+        @ApplicationContext  context: Context
+
     ): WeatherManager {
-        return WeatherManager(networkDataSource,localDataSource, weatherRepository)
+        return WeatherManager(localDataSource, weatherDataSource, context )
     }
 }

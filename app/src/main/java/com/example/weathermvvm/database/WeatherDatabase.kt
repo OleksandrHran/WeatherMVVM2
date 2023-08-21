@@ -19,7 +19,7 @@ abstract class WeatherDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: WeatherDatabase? = null
-
+@Synchronized
         fun getDataBase(context: Context): WeatherDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
