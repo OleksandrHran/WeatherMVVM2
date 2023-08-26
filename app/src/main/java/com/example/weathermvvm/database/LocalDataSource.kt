@@ -14,8 +14,9 @@ class LocalDataSource @Inject constructor(private val weatherDao: WeatherDao) {
             WeatherData(
                 id = weatherEntity.id,
                 dt = weatherEntity.time,
-                main = MainData(temp = weatherEntity.temp),
-                weather = listOf(WeatherDetail(icon = weatherEntity.icon))
+                main = MainData(temp = weatherEntity.temp, temp_min = weatherEntity.temp),
+                weather = listOf(WeatherDetail(icon = weatherEntity.icon, description = weatherEntity.description.toString())),
+                description = weatherEntity.description.toString()
             )
         }
     }
@@ -25,7 +26,9 @@ class LocalDataSource @Inject constructor(private val weatherDao: WeatherDao) {
             WeatherEntity(
                 time = data.dt,
                 temp = data.main.temp,
-                icon = data.weather[0].icon
+                icon = data.weather[0].icon,
+                description = data.description,
+                temp_min = data.main.temp_min
             )
         }
         weatherDao.insertWeatherEntity(weatherEntityList)

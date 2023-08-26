@@ -27,6 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.MapActivity"
+            android:label="Map Activity" />
     </application>
 
 </manifest>

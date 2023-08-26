@@ -9,7 +9,7 @@ import com.example.weathermvvm.database.data.WeatherEntity
 
 @Database(
     entities = [WeatherEntity::class],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 
@@ -19,7 +19,8 @@ abstract class WeatherDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: WeatherDatabase? = null
-@Synchronized
+
+        @Synchronized
         fun getDataBase(context: Context): WeatherDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(

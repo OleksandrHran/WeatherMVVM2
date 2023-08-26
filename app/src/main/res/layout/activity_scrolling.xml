@@ -61,6 +61,7 @@
                 android:textSize="50sp" />
 
             <TextView
+                android:id="@+id/temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
@@ -71,6 +72,7 @@
                 android:textSize="80sp" />
 
             <TextView
+                android:id="@+id/condition_weather"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"

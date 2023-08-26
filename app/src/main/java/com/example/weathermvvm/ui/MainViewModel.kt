@@ -18,26 +18,24 @@ class MainViewModel @Inject constructor(
     private val _weatherData = MutableLiveData<List<WeatherData>>()
     val weatherData: LiveData<List<WeatherData>> = _weatherData
 
-    fun startFetchingWeatherData() {
-        viewModelScope.launch {
-            try {
-                val weatherData = weatherManager.fetchWeatherData()
-                if (weatherData != null) {
-                    _weatherData.postValue(weatherData)
-                    weatherManager.saveWeatherData(weatherData)
-                }else{
-                    loadWeatherFromDatabase()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
+    private val _currentTemperature = MutableLiveData<String>()
+    val currentTemperature: LiveData<String> = _currentTemperature
 
-    private  fun loadWeatherFromDatabase() {
-        val weatherFromDataBase = weatherManager.loadWeatherDataFromDataBase()
-        if (weatherFromDataBase.isEmpty()) {
-            _weatherData.postValue(weatherFromDataBase)
+    private val _currentWeatherCondition = MutableLiveData<String>()
+    val currentWeatherCondition: LiveData<String> = _currentWeatherCondition
+
+
+    fun getWeatherData() {
+        viewModelScope.launch {
+            val fetchedWeatherData = weatherManager.fetchWeatherData()
+            _weatherData.postValue(fetchedWeatherData)
+
+            val currentTemp = fetchedWeatherData?.firstOrNull()?.main?.temp ?: 0.0
+            val roundedTemp = currentTemp.toInt()
+            _currentTemperature.postValue(roundedTemp.toString())
+
+            val currentCondition = fetchedWeatherData?.firstOrNull()?.description ?: ""
+            _currentWeatherCondition.postValue(currentCondition)
         }
     }
 }

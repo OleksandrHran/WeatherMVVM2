@@ -12,6 +12,12 @@ object WeatherUtils {
         return formatter.format(date)
     }
 
+    fun getDayFromDate(timestamp: Long): String {
+        val date = Date(timestamp * 1000L)
+        val formatter = SimpleDateFormat("EEEE", Locale.getDefault())
+        return formatter.format(date)
+    }
+
     fun getIconId(iconCode: String): Int {
         return when (iconCode) {
 
