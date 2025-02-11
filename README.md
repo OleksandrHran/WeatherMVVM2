@@ -1,5 +1,5 @@
 
-# WeatherMVVM
+# WeatherApp-MVVM
 
 This app is built with Kotlin. It provides weather information from OpenweathermapAPI to keep users updated about current and upcoming weather.
 
